@@ -1,0 +1,1 @@
+This folder is for openvino files in ir format!
