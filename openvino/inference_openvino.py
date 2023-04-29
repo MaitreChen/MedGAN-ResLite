@@ -64,8 +64,10 @@ def inference_resnet18sam(model_path, img_path, visualize, mode, device):
 if __name__ == "__main__":
     # Define cmd arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model-path', type=str, required=True, default='openvino/ir_models/resnet18-sam.xml')
-    parser.add_argument('--image-path', type=str, required=True, default='imgs/normal_img1.png')
+    parser.add_argument('--model-path', type=str, required=True, default='openvino/ir_models/resnet18-sam.xml',
+                        help='path of the IR model (.xml) that will be inferred')
+    parser.add_argument('--image-path', type=str, required=True, default='imgs/normal_img1.png',
+                        help='path of the image that will be input')
     parser.add_argument('--visualize', type=bool, required=False, default=True,
                         help='Enabling visualization. (default: True)')
     parser.add_argument('--mode', type=int, required=False, default=0,
