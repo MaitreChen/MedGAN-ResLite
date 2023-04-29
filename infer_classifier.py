@@ -16,7 +16,9 @@ with open('./configs/config.yaml', 'r', encoding='utf-8') as f:
     yaml_info = yaml.load(f.read(), Loader=yaml.FullLoader)
 classes = yaml_info['classes'].split()
 n_classes = yaml_info['n_classes']
-image_size = yaml_info['image_size']
+IMAGE_SIZE = yaml_info['image_size']
+MEAN = yaml_info['mean']
+STD = yaml_info['std']
 
 
 def get_transform():
@@ -27,7 +29,8 @@ def get_transform():
     """
     return transforms.Compose([
         transforms.ToTensor(),
-        transforms.Resize([image_size, image_size])
+        transforms.Resize([IMAGE_SIZE, IMAGE_SIZE]),
+        transforms.Normalize(mean=MEAN, std=STD)
     ])
 
 
@@ -79,7 +82,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--ckpt-path', type=str, default='pretrained/resnet18-sam.pth',
                         help='checkpoints path for inference')
-    parser.add_argument('--image-path', type=str, default='imgs/normal_img1.png',
+    parser.add_argument('--image-path', type=str, default='imgs/pneumonia_img2.png',
                         help='image path for inference')
     parser.add_argument('--use_gpu', action='store_true', default=True,
                         help='turn on flag to use GPU')
