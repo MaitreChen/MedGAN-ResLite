@@ -1,19 +1,11 @@
-import torch
-
-import torchvision.transforms as transforms
 import torch.utils.data as data
+import torch
 
 from utils.classifier_dataset import PneumoniaDataset, ImageTransform
 from utils.metrics import classifier_evaluate
 from utils.plot_utils import plot_confusion_matrix
 
 from models.model import create_model
-
-data_transform = transforms.Compose([
-    transforms.ToTensor(),
-    transforms.Resize((224, 224)),
-    transforms.Normalize(mean=[.5], std=[.5])
-])
 
 
 def test(model, data_loader):
@@ -36,8 +28,8 @@ def test(model, data_loader):
 if __name__ == '__main__':
     ckpt_path = 'pretrained/resnet18-sam.pth'
     save_dir = '/'.join(ckpt_path.split('/')[:-1])
-    batch_size = 32
-    workers = 4
+    batch_size = 8
+    workers = 0
     device = 'cpu'
 
     # Build model
