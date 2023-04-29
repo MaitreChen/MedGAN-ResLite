@@ -27,8 +27,10 @@ def export_onnx(ckpt_path, output_dir):
 if __name__ == "__main__":
     # Define cmd arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('--ckpt-path', type=str, required=True, default='./pretrained/resnet18-sam.pth')
-    parser.add_argument('--output-path', type=str, required=True, default='./pretrained/resnet18-sam.onnx')
+    parser.add_argument('--ckpt-path', type=str, required=True, default='./pretrained/resnet18-sam.pth',
+                        help='path of the checkpoint that will be exported')
+    parser.add_argument('--output-path', type=str, required=True, default='./pretrained/resnet18-sam.onnx',
+                        help='path for saving the ONNX model')
     args = parser.parse_args()
 
     # Check input arguments

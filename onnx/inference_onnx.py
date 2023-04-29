@@ -42,19 +42,14 @@ def inference_resnet18sam(model_path, img_path, image_size=224):
     print(f"Inference time: {1000. * (end_time - start_time):.4f} ms")
     print(f"The result: {res}")
 
-    # visualization of result
-    resized_src = cv.resize(src, None, fx=10, fy=10)
-    cv.putText(resized_src, "Prediction:" + str(res), (0, 20), cv.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
-    cv.imshow("result", resized_src)
-    cv.waitKey()
-    cv.destroyAllWindows()
-
 
 if __name__ == "__main__":
     # Define cmd arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model-path', type=str, required=True, default='pretrained/resnet18-sam.onnx')
-    parser.add_argument('--image-path', type=str, required=True, default='imgs/normal_img1.png')
+    parser.add_argument('--model-path', type=str, required=True, default='pretrained/resnet18-sam.onnx',
+                        help='path of the ONNX model that will be inferred')
+    parser.add_argument('--image-path', type=str, required=True, default='imgs/normal_img1.png',
+                        help='path of the image that will be input')
     args = parser.parse_args()
 
     # Check input arguments
