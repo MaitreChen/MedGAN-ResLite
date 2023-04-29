@@ -4,10 +4,13 @@
 
 *.xml
 *.bin
+*.mapping
 
 
 *.jpg
 *.png
+!img/*.png
+
 
 .idea/
 __pycache__/
