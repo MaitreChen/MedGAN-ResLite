@@ -23,7 +23,7 @@ def copy_files_to_output_dir(files, dataset_dir, output_dir, sub_dir):
         shutil.copy(src, dst)
 
 
-def split_dataset(dataset_dir: str, output_dir: str, train_percent: float, val_percent: float, test_percent: float):
+def split_dataset(dataset_dir, output_dir, train_percent, val_percent, test_percent):
     """
     Split the dataset into train, validation, and test sets and copy them to the output directory.
 
@@ -64,7 +64,7 @@ def split_dataset(dataset_dir: str, output_dir: str, train_percent: float, val_p
 
 
 if __name__ == '__main__':
-    input_dataset_dir = '../data/fake/normal1/'
-    output_dataset_dir = '../data/fake/normal'
+    input_dataset_dir = '..\\data\\fake\\normal'
+    output_dataset_dir = '..\\data\\fake\\normal'
 
     split_dataset(input_dataset_dir, output_dataset_dir, 0.8475, 0.1, 0.05)

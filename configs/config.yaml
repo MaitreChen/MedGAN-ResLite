@@ -13,3 +13,7 @@ root2: './data/fake'
 # model input size
 image_size: 224
 
+# properties
+mean: [0.00924097]
+std: [0.00282327]
+

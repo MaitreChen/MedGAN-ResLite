@@ -1,17 +1,17 @@
 # IMPORT PACKAGES
 from PIL import Image
+import yaml
 import os
 
 from torchvision import transforms
 from torch.utils import data
 
-img_size = 224
-
-data_transform = transforms.Compose([
-    transforms.ToTensor(),
-    transforms.Resize([img_size, img_size]),
-    transforms.Normalize(mean=[.5], std=[.5])
-])
+# load config
+with open('./configs/config.yaml', 'r', encoding='utf-8') as f:
+    yaml_info = yaml.load(f.read(), Loader=yaml.FullLoader)
+IMAGE_SIZE = yaml_info['image_size']
+MEAN = yaml_info['mean']
+STD = yaml_info['std']
 
 
 # resize 64x64 images
@@ -27,8 +27,8 @@ class ImageTransform():
     def __init__(self):
         self.data_transform = transforms.Compose([
             transforms.ToTensor(),
-            transforms.Resize([img_size, img_size]),
-            transforms.Normalize(mean=[0.00924097], std=[0.00282327])
+            transforms.Resize([IMAGE_SIZE, IMAGE_SIZE]),
+            transforms.Normalize(mean=MEAN, std=STD)
         ])
 
     def __call__(self, img):
@@ -64,37 +64,28 @@ class PneumoniaDataset(data.Dataset):
         # dataPath2 = {'train': self.train_path2, 'val': self.val_path2, 'test': self.test_path2}
 
         # class1: normal images and label
-        # real images
+        # real images (normal)
         normal_path1 = os.path.join(dataPath1[self.mode], 'normal')
 
         # modify the ratio of the test images
-        if self.mode == 'test':
-            normal_img_list1 = os.listdir(normal_path1)
-        else:
-            normal_img_list1 = os.listdir(normal_path1)
+        normal_img_list1 = os.listdir(normal_path1)
         normal_img_list1_ = [os.path.join(normal_path1, _) for _ in normal_img_list1]
         normal_label_list1_ = [0] * len(normal_img_list1)
 
-        # normal_img_list_ = normal_img_list1_
-        # normal_label_list_ = normal_label_list1_
-
-        # fake images
+        # fake images (normal)
         normal_path2 = os.path.join(self.root2, 'normal', self.mode)
         normal_img_list2 = os.listdir(normal_path2)
 
         normal_img_list2_ = [os.path.join(normal_path2, _) for _ in normal_img_list2]
         normal_label_list2_ = [0] * len(normal_img_list2)
 
-        # add
+        # real + fake (normal)
         normal_img_list_ = normal_img_list1_ + normal_img_list2_
         normal_label_list_ = normal_label_list1_ + normal_label_list2_
 
         # class2: abnormal images and label
         pneumonia_path = os.path.join(dataPath1[self.mode], 'pneumonia')
-        if self.mode == 'test':
-            pneumonia_img_list = os.listdir(pneumonia_path)[:376]
-        else:
-            pneumonia_img_list = os.listdir(pneumonia_path)
+        pneumonia_img_list = os.listdir(pneumonia_path)
         pneumonia_img_list_ = [os.path.join(pneumonia_path, _) for _ in pneumonia_img_list]
         pneumonia_label_list_ = [1] * len(pneumonia_img_list)
 
@@ -123,13 +114,17 @@ class PneumoniaDataset(data.Dataset):
 
 
 if __name__ == "__main__":
-    train_dataset = PneumoniaDataset(root1='../data/real', root2='../data/fake',
+    train_dataset = PneumoniaDataset(root1='..\\data\\real', root2='..\\data\\fake',
                                      mode='train', transform=ImageTransform())
 
     print(len(train_dataset))
-    val_loader = data.DataLoader(
-        train_dataset, batch_size=800, shuffle=True)
 
-    batch_iter = iter(val_loader)
-    data = next(batch_iter)
-    print(data[1])
+    val_dataset = PneumoniaDataset(root1='..\\data\\real', root2='..\\data\\fake',
+                                   mode='val', transform=ImageTransform())
+
+    print(len(val_dataset))
+
+    test_dataset = PneumoniaDataset(root1='..\\data\\real', root2='..\\data\\fake',
+                                    mode='test', transform=ImageTransform())
+
+    print(len(test_dataset))
