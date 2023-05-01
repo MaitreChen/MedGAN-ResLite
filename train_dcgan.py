@@ -1,4 +1,5 @@
 # IMPORT PACKAGES
+from prettytable import PrettyTable
 import matplotlib.pyplot as plt
 from time import time
 import numpy as np
@@ -30,8 +31,6 @@ def set_seed(seed):
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
-
-    print(f"random seed: {seed}")
 
 
 # Create a function to train the model
@@ -82,7 +81,7 @@ def train_model(G, D, dataloader, num_epochs, g_lr, d_lr, beta1, beta2):
             d_out_real = D(images)
 
             # Make and Discriminate fake images
-            input_z = torch.randn(mini_batch_size, z_dim).to(DEVICE)
+            input_z = torch.randn(mini_batch_size, args.z_dim).to(DEVICE)
             input_z = input_z.view(input_z.size(0), input_z.size(1), 1, 1)
             fake_images = G(input_z)
             d_out_fake = D(fake_images)
@@ -109,7 +108,7 @@ def train_model(G, D, dataloader, num_epochs, g_lr, d_lr, beta1, beta2):
             # --------------------
 
             #  Make fake images
-            input_z = torch.randn(mini_batch_size, z_dim).to(DEVICE)
+            input_z = torch.randn(mini_batch_size, args.z_dim).to(DEVICE)
             input_z = input_z.view(input_z.size(0), input_z.size(1), 1, 1)
             fake_images = G(input_z)
             d_out_fake = D(fake_images)
@@ -158,7 +157,7 @@ def train_model(G, D, dataloader, num_epochs, g_lr, d_lr, beta1, beta2):
             fig = plt.figure(figsize=(5, 5))
             fig.suptitle(f"epoch {epoch}", fontsize=17)
             with torch.no_grad():
-                input_z = torch.randn(batch_size // 2, z_dim).to(DEVICE)
+                input_z = torch.randn(batch_size // 2, args.z_dim).to(DEVICE)
                 input_z = input_z.view(input_z.size(0), input_z.size(1), 1, 1)
                 fake = G(input_z).detach().cpu()
                 for i in range(0, 25):
@@ -211,20 +210,11 @@ def get_argparse():
 
 if __name__ == "__main__":
     args = get_argparse().parse_args()
-    print(args.name)
-
-    # Check input argument
-    NUM_EPOCHS = args.epochs
-    g_lr, d_lr = args.g_lr, args.d_lr
-    beta1, beta2 = args.beta1, args.beta2
-    z_dim = args.z_dim
-    image_size = args.image_size
 
     with open('./configs/config.yaml', 'r', encoding='utf-8') as f:
         yaml_info = yaml.load(f.read(), Loader=yaml.FullLoader)
     n_channels = yaml_info['n_channels']
 
-    # Select device and start cudnn.benchmark
     DEVICE = 'cuda' if args.use_gpu and torch.cuda.is_available() else 'cpu'
 
     # Set checkpoints dir
@@ -232,7 +222,6 @@ if __name__ == "__main__":
     print('==> Creating folders..')
     ckpt_save_dir = os.path.join("checkpoints/dcgan/", args.name)
     create_folder(ckpt_save_dir)
-    print(f"checkpoints save to: {ckpt_save_dir}")
 
     # Set logs dir
     log_path = os.path.join('logs/dcgan/', args.name)
@@ -241,7 +230,30 @@ if __name__ == "__main__":
     # Set fake images dir
     output_save_dir = os.path.join(args.output_dir, args.name)
     create_folder(output_save_dir)
-    print(f"fake images save to: {output_save_dir}")
+
+    # Create the table object, name, and alignment
+    table = PrettyTable(['Hyper-Parameters & data infos', 'Value'])
+    table.align['Hyper-Parameters & data infos'] = 'l'
+    table.align['Value'] = 'r'
+
+    # Add to table
+    table.add_row(['Batch size', args.batch_size])
+    table.add_row(['Workers', args.workers])
+    table.add_row(['Num epochs', args.epochs])
+    table.add_row(['Generator LR', args.g_lr])
+    table.add_row(['Discriminator LR', args.d_lr])
+    table.add_row(['beta1', args.beta1])
+    table.add_row(['beta2', args.beta2])
+    table.add_row(['random seed', args.seed])
+    table.add_row(['Device', DEVICE])
+    table.add_row(["", ""])
+    table.add_row(['z_dim', args.z_dim])
+    table.add_row(['image size', args.image_size])
+    table.add_row(['n_channels', n_channels])
+    table.add_row(["", ""])
+    table.add_row(['checkpoints path', ckpt_save_dir])
+    table.add_row(['fake images path', output_save_dir])
+    print(table)
 
     # # # Set event_save_path
     # tensorboard_dir = os.path.join('logs/dcgan', args.name)
@@ -262,14 +274,15 @@ if __name__ == "__main__":
     print_info()
     print('==> Building model..')
     # Initialize model and weight
-    G = Generator(z_dim=z_dim, image_size=image_size, out_channels=n_channels)
-    D = Discriminator(image_size=image_size, in_channels=n_channels)
+    G = Generator(z_dim=args.z_dim, image_size=args.image_size, out_channels=n_channels)
+    D = Discriminator(image_size=args.image_size, in_channels=n_channels)
 
     # Train model
     print_info()
     print('==> Training model..')
-    G_update, D_update, G_loss_set, D_loss_set = train_model(G, D, train_dataloader, NUM_EPOCHS, args.g_lr, d_lr, beta1,
-                                                             beta2)
+    G_update, D_update, G_loss_set, D_loss_set = train_model(G, D, train_dataloader, args.epochs, args.g_lr, args.d_lr,
+                                                             args.beta1,
+                                                             args.beta2)
 
     # Training visualization
     plot_g_d_loss(G_loss_set, D_loss_set, ckpt_save_dir)

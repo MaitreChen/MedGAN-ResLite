@@ -1,4 +1,5 @@
 # IMPORT PACKAGES
+from prettytable import PrettyTable
 from tqdm import tqdm
 import numpy as np
 import argparse
@@ -14,7 +15,7 @@ from utils.classifier_dataset import PneumoniaDataset, ImageTransform
 from utils.common_utils import create_folder, print_info
 from utils.plot_utils import plot_accuracy
 
-from models.model import create_model
+from models.create_model import create_model
 
 # from onnx.export_onnx import export_onnx
 # from compression.prune import main_prune
@@ -34,8 +35,6 @@ def set_seed(seed):
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
-
-    print(f"random seed: {seed}")
 
 
 def test(split):
@@ -136,7 +135,7 @@ def get_argparse():
                         help='multiply by a gamma every lr_decay_epochs (only for step lr policy)')
     parser.add_argument('--step-size', type=int, default=20, help='period of lr decay. (default: 20)')
     parser.add_argument('--seed', type=int, default=1234, help='random seed. [47 | 3407 | 1234]')
-    parser.add_argument('--use_gpu', action='store_true', default=True, help='turn on flag to use GPU')
+    parser.add_argument('--use-gpu', action='store_true', default=True, help='turn on flag to use GPU')
     parser.add_argument('--pretrain', action='store_true', default=True, help='whether to fine-tune')
 
     # Model Options
@@ -152,7 +151,7 @@ def get_argparse():
                         help='base model for pruning')
     parser.add_argument('--prune', action='store_true', default=False, help='start pruning')
     parser.add_argument('--prune-policy', type=str, default='fpgm', help='pruning policy. [l1 | l2 | fpgm] ')
-    parser.add_argument('--sparse', type=float, default=0.99, help='pruning ratio (default: 0.8)')
+    parser.add_argument('--sparse', type=float, default=0.8, help='pruning ratio (default: 0.8)')
     '''
 
     # File Management Options
@@ -165,7 +164,7 @@ def get_argparse():
 if __name__ == '__main__':
     args = get_argparse().parse_args()
 
-    # Check input argument
+    # hyper-parameters
     NUM_EPOCHS = args.epochs
     BATCH_SIZE = args.batch_size
     WORKERS = args.workers
@@ -173,6 +172,7 @@ if __name__ == '__main__':
     MOMENTUM = args.momentum
     DEVICE = 'cuda' if args.use_gpu and torch.cuda.is_available() else 'cpu'
 
+    # data info
     with open('./configs/config.yaml', 'r', encoding='utf-8') as f:
         yaml_info = yaml.load(f.read(), Loader=yaml.FullLoader)
     dataset_root1 = yaml_info['root1']
@@ -182,15 +182,37 @@ if __name__ == '__main__':
     image_size = yaml_info['image_size']
 
     # Set save dir
-    print_info()
-    print('==> Creating folders..')
-
     train_infos = [args.name, 'lr', LR, args.lr_policy, args.step_size]
     log_info = "_".join(str(i) for i in train_infos)
-
     save_dir = f"checkpoints/cls/{log_info}"
     create_folder(save_dir)
-    print(f"save_dir={save_dir}")
+    # print(f"save_dir={save_dir}")
+
+    # Create the table object, name, and alignment
+    table = PrettyTable(['Hyper-Parameters & data infos', 'Value'])
+    table.align['Hyper-Parameters & data infos'] = 'l'
+    table.align['Value'] = 'r'
+
+    # Add to table
+    table.add_row(['Batch size', BATCH_SIZE])
+    table.add_row(['Workers', WORKERS])
+    table.add_row(['Num epochs', NUM_EPOCHS])
+    table.add_row(['Optimizer strategy', args.optim_policy])
+    table.add_row(['Weight decay', args.weight_decay])
+    table.add_row(['Learning rate', LR])
+    table.add_row(['Momentum', MOMENTUM])
+    table.add_row(['LR policy', args.lr_policy])
+    table.add_row(['gamma', args.gamma])
+    table.add_row(['step-size', args.step_size])
+    table.add_row(['random seed', args.seed])
+    table.add_row(['Device', DEVICE])
+    table.add_row(["", ""])
+    table.add_row(['dataset_root1', dataset_root1])
+    table.add_row(['dataset_root2', dataset_root2])
+    table.add_row(['n_channels', n_channels])
+    table.add_row(['n_classes', n_classes])
+    table.add_row(['image_size', image_size])
+    print(table)
 
     set_seed(args.seed)
 
@@ -211,9 +233,8 @@ if __name__ == '__main__':
     # Create models
     print_info()
     print('==> Building model..')
-
     model = create_model(args.model_name, args.use_pretrained)
-    # print(test('test'))
+
     print_info()
     print('==> Defining optimizer and scheduler..')
     if args.optim_policy == 'sgd':
