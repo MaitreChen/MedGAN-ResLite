@@ -4,6 +4,7 @@ import os
 
 from torchvision import transforms
 from torch.utils import data
+import torchvision.utils
 
 
 def make_data_path_list():
@@ -118,3 +119,10 @@ def get_dataloader_dcgan(batch_size=64, workers=8):
         train_dataset, batch_size=batch_size, shuffle=True, num_workers=workers)
 
     return train_dataloader
+
+
+if __name__ == '__main__':
+    train_dataloader = get_dataloader_dcgan(batch_size=64)
+    batch_iterator = iter(train_dataloader)  # convert to iteration
+    real_images = next(batch_iterator)  # get the first element
+    torchvision.utils.save_image(real_images, 'real.png')
