@@ -1,5 +1,5 @@
 # IMPORT PACKAGES
-from prettytable import PrettyTable
+from A import PrettyTable
 from tqdm import tqdm
 import numpy as np
 import argparse
