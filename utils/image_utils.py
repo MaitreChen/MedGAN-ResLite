@@ -22,7 +22,7 @@ def decode_to_numpy(x):
 def getStat(train_data):
     """
     Compute mean and variance for training data
-    :param train_data: 自定义类Dataset(或ImageFolder即可)
+    :param train_data: Dataset
     :return: (mean, std)
     """
     n_channels = 1

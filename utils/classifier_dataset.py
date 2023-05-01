@@ -9,6 +9,8 @@ from torch.utils import data
 # load config
 with open('./configs/config.yaml', 'r', encoding='utf-8') as f:
     yaml_info = yaml.load(f.read(), Loader=yaml.FullLoader)
+
+# set image size, mean and standard deviation from config file
 IMAGE_SIZE = yaml_info['image_size']
 MEAN = yaml_info['mean']
 STD = yaml_info['std']
@@ -25,6 +27,7 @@ def preprocess_input(img):
 # Pre-processing for ResNet18
 class ImageTransform():
     def __init__(self):
+        # define image transformations
         self.data_transform = transforms.Compose([
             transforms.ToTensor(),
             transforms.Resize([IMAGE_SIZE, IMAGE_SIZE]),
@@ -32,6 +35,7 @@ class ImageTransform():
         ])
 
     def __call__(self, img):
+        # apply image transformations
         return self.data_transform(img)
 
 
@@ -89,23 +93,28 @@ class PneumoniaDataset(data.Dataset):
         pneumonia_img_list_ = [os.path.join(pneumonia_path, _) for _ in pneumonia_img_list]
         pneumonia_label_list_ = [1] * len(pneumonia_img_list)
 
-        print(f"normal images length: {len(normal_img_list_)}")
-        print(f"pneumonia images length: {len(pneumonia_img_list)}")
+        print(f"{mode}")
+        print(f"Number of normal images: {len(normal_img_list_)}")
+        print(f"Number of pneumonia images: {len(pneumonia_img_list)}")
 
-        # concatenate
+        # concatenate normal and pneumonia image lists and label lists
         self.img_list = normal_img_list_ + pneumonia_img_list_
         self.label_list = normal_label_list_ + pneumonia_label_list_
 
     def __len__(self):
+        # return length of dataset
         return len(self.img_list)
 
     def __getitem__(self, index):
+        # get image path and label at given index
         img_path = self.img_list[index]
         label = self.label_list[index]
+        # open image and preprocess it
         img = Image.open(img_path).convert('L')
         img = preprocess_input(img)
 
         if self.transform is not None:
+            # apply additional transformations if specified
             img = self.transform(img)
         else:
             img = transforms.ToTensor()(img)
@@ -113,18 +122,4 @@ class PneumoniaDataset(data.Dataset):
         return img, label
 
 
-if __name__ == "__main__":
-    train_dataset = PneumoniaDataset(root1='..\\data\\real', root2='..\\data\\fake',
-                                     mode='train', transform=ImageTransform())
 
-    print(len(train_dataset))
-
-    val_dataset = PneumoniaDataset(root1='..\\data\\real', root2='..\\data\\fake',
-                                   mode='val', transform=ImageTransform())
-
-    print(len(val_dataset))
-
-    test_dataset = PneumoniaDataset(root1='..\\data\\real', root2='..\\data\\fake',
-                                    mode='test', transform=ImageTransform())
-
-    print(len(test_dataset))
