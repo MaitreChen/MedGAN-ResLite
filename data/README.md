@@ -26,9 +26,9 @@ Furthermore, it includes the number and proportion of ==positive and negative== 
 
 |       | Numbers | Normal | Pneumonia |  Ratio  |
 | :---: | :-----: | :----: | :-------: | :-----: |
-| TRAIN |  4708   |  1214  |   3494    | 1：2.87 |
-|  VAL  |   524   |  135   |    389    | 1：2.88 |
-| TEST  |   624   |  234   |    390    | 1：1.67 |
+| Train |  4708   |  1214  |   3494    | 1：2.87 |
+|  Val  |   524   |  135   |    389    | 1：2.88 |
+| Test  |   624   |  234   |    390    | 1：1.67 |
 | TOTAL |  5856   |  1583  |   4273    | 1：2.69 |
 
 Note：
@@ -43,6 +43,21 @@ In addition to the `pneumoniamnist` dataset, we also provide synthetic data gene
 
 Both datasets are stored in subfolders within this directory. To use them, you can modify your training code to load the data from these folders.
 
----
+## Fusion of real and fake datasets🌀
+
+The synthetic fake data and the original real data are fused to obtain the data set used for training, and the specific distribution is as follows:
+
+|       | Numbers | Normal | Pneumonia |
+| ----- | ------- | ------ | --------- |
+| Train | 6988    | 3494   | 3494      |
+| Val   | 778     | 389    | 389       |
+| Test  | 752     | 376    | 376       |
+
+Quantitative comparison before and after data augmentation:
+
+| Class     | Before augmentation | After augmentation |
+| --------- | ------------------- | ------------------ |
+| Normal    | 1583                | 4259               |
+| Pneumonia | 4273                | 4259               |
 
 That's all!!😊

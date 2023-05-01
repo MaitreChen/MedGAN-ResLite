@@ -13,13 +13,13 @@
 2. Export the ONNX Model:
 
    ```bash
-   python .\onnx\export_onnx.py --ckpt-path .\pretrained\resnet18-sam.pth --output-path .\pretrained\resnet18-sam.onnx
+   python onnx/export_onnx.py --ckpt-path pretrained/resnet18-sam.pth --output-path pretrained/resnet18-sam.onnx
    ```
 
 3. Inference the ONNX model:
 
    ```bash
-   python .\onnx\inferece_onnx.py --model-path pretrained/resnet18-sam.onnx --image-path .\imgs\normal_img1.png
+   python onnx/inference_onnx.py --model-path pretrained/resnet18-sam.onnx --image-path imgs/normal_img1.png
    ```
 
 

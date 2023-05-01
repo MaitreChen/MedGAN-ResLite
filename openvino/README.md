@@ -1,6 +1,6 @@
 # ResNet18-SAM + OpenVNO🎇
 
-## 📣Introdution
+## 📣Introduction
 
 This is a folder for **openvino** model convert and inference!
 
@@ -43,13 +43,13 @@ python mo.py -h
 2. Convert pth model to IR model:
 
    ```bash
-   mo --input_model .\pretrained\resnet18-sam.onnx --output_dir .\openvino\ir_models\
+   mo --input_model pretrained/resnet18-sam.onnx --output_dir openvino/ir_models/
    ```
 
 3. Inference the IR model:
 
    ```bash
-   python .\openvino\inference_openvino.py --model-path .\openvino\ir_models\resnet18-sam.xml --image-path .\imgs\normal_img1.png
+   python openvino/inference_openvino.py --model-path openvino/ir_models/resnet18-sam.xml --image-path imgs/normal_img1.png
    ```
 
    **CPU** is enabled by default to perform **synchronous** inference!
