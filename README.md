@@ -1,6 +1,6 @@
 <div align="center">
   <a href="" target="_blank">
-  <img width="100%" src="https://github.com/MaitreChen/MedGAN-ResLite/blob/main/figures/logo.png"></a>
+  <img width="50%" src="https://github.com/MaitreChen/MedGAN-ResLite/blob/main/figures/logo.png"></a>
 </div>
 
 <div align="center">
