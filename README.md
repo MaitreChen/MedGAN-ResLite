@@ -1,14 +1,18 @@
 <div align="center">
+  <a href="" target="_blank">
+  <img width="100%" src="https://github.com/MaitreChen/MedGAN-ResLite/blob/main/figures/logo.png"></a>
+</div>
+
+<div align="center">
    <a href="https://img.shields.io/badge/Nickname-阿斌~-blue"><img src="https://img.shields.io/badge/Nickname-阿斌~-blue.svg"></a>
    <a href="https://img.shields.io/badge/Hello-Buddy~-red"><img src="https://img.shields.io/badge/Hello-Buddy~-red.svg"></a>
    <a href="https://img.shields.io/badge/Enjoy-Yourself-brightgreen"><img src="https://img.shields.io/badge/Enjoy-Yourself-brightgreen.svg"></a>
 </div>
 
+
 # 📣Introduction
 
 This is a **pneumonia classification** project that addresses the issue of **class imbalance** by utilizing generative adversarial networks (GAN) to generate images of minority class samples. In addition, the **spatial attention mechanism** is introduced into **ResNet18** to enhance the generalization performance of classifier!
-
-----
 
 🔥 **Workflow**
 
@@ -54,23 +58,23 @@ This is a **pneumonia classification** project that addresses the issue of **cla
 * ❓ Experiment with more challenging datasets, such as [ChestXRay2017](https://data.mendeley.com/datasets/rscbjbr9sj/2), Kaggle, etc.
 * ❓ Consider introducing the idea of **"learning"** when scaling the image, such as adopting **transposed convolution** instead of interpolation when scaling up the image size
 
-#### Part 2 Generation part
+#### Part 2: Generation part
 
 * ✅❗ May 23, 2023. Try Muti-Scale Fusion.
 * ✅❗ May 25, 2023. Introduce class information into DCGAN to generate samples.【cDCGAN】
 * ❓ Replace original Loss function with Wasserstein distance.
 
-#### Part 3 Classification part
+#### Part 3: Classification part
 
 * ❓ Apply ensemble learning methods, such as voting evaluation.
 
-#### Part 4 Lightweight-NN part
+#### Part 4: Lightweight-NN part
 
 * ❓ Pruning：one-hot + iterative ，including L1✅、L2✅、FPGM✅、BNScale.
 * ❓ Build the pruned model automatically.
 * ❓ Knowledge distillation：design lightweight network A，and use pruned-model to guide A.
 
-#### Part 5 Depolyment part
+#### Part 5: Depolyment part
 
 * ❓ Deploy model on CPU and NSC2 using OpenVINO. 【Python ✅and C++ version】.
 * ❓ Deploy on the web side using Django or flask.
@@ -118,8 +122,6 @@ MedGAN-ResLite/
     |__ fake/
         |__ ...
 ```
-
-----
 
 You can download pretrained checkpoints from this [link](https://drive.google.com/drive/folders/1iMSjrbF0zWCtYfCxdyY_yOhMbn9KUZM-?usp=share_link) and put it in your **pretrained/** folder. It contains **resnet18-sam** and **sh-dcgan** model.
 
