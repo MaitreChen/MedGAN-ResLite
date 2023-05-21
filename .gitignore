@@ -11,6 +11,7 @@
 *.png
 !imgs/*.png
 !figures/*.png
+!figures/display/*
 
 
 .idea/
