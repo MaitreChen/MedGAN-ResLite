@@ -3,6 +3,7 @@
   <img width="50%" src="https://github.com/MaitreChen/MedGAN-ResLite/blob/main/figures/logo.png"></a>
 </div>
 
+
 <div align="center">
    <a href="https://img.shields.io/badge/Nickname-阿斌~-blue"><img src="https://img.shields.io/badge/Nickname-阿斌~-blue.svg"></a>
    <a href="https://img.shields.io/badge/Hello-Buddy~-red"><img src="https://img.shields.io/badge/Hello-Buddy~-red.svg"></a>
@@ -248,7 +249,79 @@ To use OpenVINO, refer to [README.md](https://github.com/MaitreChen/MedGAN-ResLi
 
 # 🌞Results
 
-....
+### Performance comparison of different GAN
+
+|  Method  | Inception  Score |  FID   | KID  |
+| :------: | :--------------: | :----: | :--: |
+|   GAN    |       2.20       | 260.15 | 0.42 |
+|  DCGAN   |       2.20       | 259.72 | 0.39 |
+| SH-DCGAN |       2.20       | 206.14 | 0.31 |
+
+
+
+<div style="display:flex;flex-wrap:wrap;justify-content:center;">
+    <div style="text-align:center;margin:10px;">
+        <a href="" target="_blank">
+            <img src="https://github.com/MaitreChen/MedGAN-ResLite/blob/main/figures/display/original.png" width="50%">
+        </a>
+        <br>
+        <em>Original</em>
+    </div>
+    <div style="text-align:center;margin:10px;">
+        <a href="" target="_blank">
+            <img src="https://github.com/MaitreChen/MedGAN-ResLite/blob/main/figures/display/sh-dcgan.png" width="50%">
+        </a>
+        <br>
+        <em>SH-DCGAN</em>
+    </div>
+</div>
+
+### *Ablation study*
+
+|     Method     | Inception  Score |  FID   | KID  |
+| :------------: | :--------------: | :----: | :--: |
+|     DCGAN      |       2.20       | 259.72 | 0.39 |
+| DCGAN  + Hinge |       2.20       | 252.42 | 0.38 |
+|  DCGAN  + SN   |       2.20       | 232.59 | 0.35 |
+|    SH-DCGAN    |       2.20       | 206.14 | 0.31 |
+
+
+
+### Comparison of different CNN models
+
+|    Model     | Accuracy/% | Precision/% | Recall/%  | F1 score/% |
+| :----------: | :--------: | :---------: | :-------: | :--------: |
+|   AlexNet    |   90.16    |    90.16    |   90.16   |   90.16    |
+|    VGG16     |   91.22    |    92.23    |   91.22   |   91.17    |
+|    VGG19     |   91.76    |    92.70    |   91.76   |   91.71    |
+|   ResNet34   |   92.55    |    93.26    |   92.55   |   92.52    |
+|   ResNet50   |   91.15    |    92.44    |   92.15   |   92.14    |
+| MobileNetV2  |   92.29    |    92.60    |   92.29   |   92.27    |
+|   ResNet18   |   92.02    |    92.02    |   92.02   |   92.02    |
+| ResNet18-SAM | **93.48**  |  **93.82**  | **93.48** | **93.47**  |
+
+
+
+### Interpretability
+
+<div style="display:flex;flex-wrap:wrap;justify-content:center;">
+    <div style="text-align:center;margin:10px;">
+        <a href="" target="_blank">
+            <img src="https://github.com/MaitreChen/MedGAN-ResLite/blob/main/figures/display/ResNet18-cm.jpg" width="50%">
+        </a>
+        <br>
+        <em>Resnet18</em>
+    </div>
+    <div style="text-align:center;margin:10px;">
+        <a href="" target="_blank">
+            <img src="https://github.com/MaitreChen/MedGAN-ResLite/blob/main/figures/display/ResNet18-cm.jpg" width="50%">
+        </a>
+        <br>
+        <em>Resnet18-SAM</em>
+    </div>
+</div>
+
+
 
 
 
