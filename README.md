@@ -286,20 +286,20 @@ To use OpenVINO, refer to [README.md](https://github.com/MaitreChen/MedGAN-ResLi
 
 
 <div style="display:flex;flex-wrap:wrap;justify-content:center;">
-<div style="text-align:center;margin:10px;width:50%;display:flex;">
-<a href="" target="_blank" style="margin:auto;">
-<img src="https://github.com/MaitreChen/MedGAN-ResLite/blob/main/figures/display/original.png">
-</a>
-<br>
-<em style="width:100%;">Original</em>
-</div>
-<div style="text-align:center;margin:10px;width:50%;display:flex;">
-<a href="" target="_blank" style="margin:auto;">
-<img src="https://github.com/MaitreChen/MedGAN-ResLite/blob/main/figures/display/sh-dcgan.png">
-</a>
-<br>
-<em style="width:100%;">SH-DCGAN</em>
-</div>
+    <div style="text-align:center;margin:10px;">
+        <a href="" target="_blank">
+            <img src="https://github.com/MaitreChen/MedGAN-ResLite/blob/main/figures/display/original.png" width="50%">
+        </a>
+        <br>
+        <em>Original</em>
+    </div>
+    <div style="text-align:center;margin:10px;">
+        <a href="" target="_blank">
+            <img src="https://github.com/MaitreChen/MedGAN-ResLite/blob/main/figures/display/sh-dcgan.png" width="50%">
+        </a>
+        <br>
+        <em>SH-DCGAN</em>
+    </div>
 </div>
 
 
