@@ -255,39 +255,93 @@ To use OpenVINO, refer to [README.md](https://github.com/MaitreChen/MedGAN-ResLi
 
 ### Performance comparison of different GAN
 
-| **Method** | **Inception  Score** | **FID** | **KID** |
-| :--------: | :------------------: | :-----: | :-----: |
-|    GAN     |         2.20         | 260.15  |  0.42   |
-|   DCGAN    |         2.20         | 259.72  |  0.39   |
-|  SH-DCGAN  |         2.20         | 206.14  |  0.31   |
-
+<div style="text-align: center;">
+  <table>
+    <tr>
+      <th>Method</th>
+      <th>Inception Score</th>
+      <th>FID</th>
+      <th>KID</th>
+    </tr>
+    <tr>
+      <td style="text-align: center;">GAN</td>
+      <td style="text-align: center;">2.20</td>
+      <td style="text-align: center;">260.15</td>
+      <td style="text-align: center;">0.42</td>
+    </tr>
+    <tr>
+      <td style="text-align: center;">DCGAN</td>
+      <td style="text-align: center;">2.20</td>
+      <td style="text-align: center;">259.72</td>
+      <td style="text-align: center;">0.39</td>
+    </tr>
+    <tr>
+      <td style="text-align: center;">SH-DCGAN</td>
+      <td style="text-align: center;">2.20</td>
+      <td style="text-align: center;">206.14</td>
+      <td style="text-align: center;">0.31</td>
+    </tr>
+  </table>
+</div>
 
 
 <div style="display:flex;flex-wrap:wrap;justify-content:center;">
-    <div style="text-align:center;margin:10px;">
-        <a href="" target="_blank">
-            <img src="https://github.com/MaitreChen/MedGAN-ResLite/blob/main/figures/display/original.png" width="50%">
-        </a>
-        <br>
-        <em>Original</em>
-    </div>
-    <div style="text-align:center;margin:10px;">
-        <a href="" target="_blank">
-            <img src="https://github.com/MaitreChen/MedGAN-ResLite/blob/main/figures/display/sh-dcgan.png" width="50%">
-        </a>
-        <br>
-        <em>SH-DCGAN</em>
-    </div>
+<div style="text-align:center;margin:10px;width:50%;display:flex;">
+<a href="" target="_blank" style="margin:auto;">
+<img src="https://github.com/MaitreChen/MedGAN-ResLite/blob/main/figures/display/original.png">
+</a>
+<br>
+<em style="width:100%;">Original</em>
 </div>
+<div style="text-align:center;margin:10px;width:50%;display:flex;">
+<a href="" target="_blank" style="margin:auto;">
+<img src="https://github.com/MaitreChen/MedGAN-ResLite/blob/main/figures/display/sh-dcgan.png">
+</a>
+<br>
+<em style="width:100%;">SH-DCGAN</em>
+</div>
+</div>
+
+
 
 ### *Ablation study*
 
-|   **Method**   | **Inception  Score** | **FID** | **KID** |
-| :------------: | :------------------: | :-----: | :-----: |
-|     DCGAN      |         2.20         | 259.72  |  0.39   |
-| DCGAN  + Hinge |         2.20         | 252.42  |  0.38   |
-|  DCGAN  + SN   |         2.20         | 232.59  |  0.35   |
-|    SH-DCGAN    |         2.20         | 206.14  |  0.31   |
+<table style="margin: 0 auto;">
+  <thead>
+    <tr>
+      <th style="text-align:center;">Method</th>
+      <th style="text-align:center;">Inception Score</th>
+      <th style="text-align:center;">FID</th>
+      <th style="text-align:center;">KID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:center;">DCGAN</td>
+      <td style="text-align:center;">2.20</td>
+      <td style="text-align:center;">259.72</td>
+      <td style="text-align:center;">0.39</td>
+    </tr>
+    <tr>
+      <td style="text-align:center;">DCGAN + Hinge</td>
+      <td style="text-align:center;">2.20</td>
+      <td style="text-align:center;">252.42</td>
+      <td style="text-align:center;">0.38</td>
+    </tr>
+    <tr>
+      <td style="text-align:center;">DCGAN + SN</td>
+      <td style="text-align:center;">2.20</td>
+      <td style="text-align:center;">232.59</td>
+      <td style="text-align:center;">0.35</td>
+    </tr>
+    <tr>
+      <td style="text-align:center;">SH-DCGAN</td>
+      <td style="text-align:center;">2.20</td>
+      <td style="text-align:center;">206.14</td>
+      <td style="text-align:center;">0.31</td>
+    </tr>
+  </tbody>
+</table>
 
 
 
@@ -295,23 +349,83 @@ To use OpenVINO, refer to [README.md](https://github.com/MaitreChen/MedGAN-ResLi
 
 <div align="center">
   <a href="" target="_blank">
-  <img width="50%" src="https://github.com/MaitreChen/MedGAN-ResLite/blob/main/figures/display/res.png"></a>
+  <img width="100%" src="https://github.com/MaitreChen/MedGAN-ResLite/blob/main/figures/display/res.png"></a>
 </div>
+
 
 
 
 ### *Comparison of different CNN models*
 
-|  **Model**   | **Accuracy/%** | **Precision/%** | **Recall/%** | **F1 score/%** |
-| :----------: | :------------: | :-------------: | :----------: | :------------: |
-|   AlexNet    |     90.16      |      90.16      |    90.16     |     90.16      |
-|    VGG16     |     91.22      |      92.23      |    91.22     |     91.17      |
-|    VGG19     |     91.76      |      92.70      |    91.76     |     91.71      |
-|   ResNet34   |     92.55      |      93.26      |    92.55     |     92.52      |
-|   ResNet50   |     91.15      |      92.44      |    92.15     |     92.14      |
-| MobileNetV2  |     92.29      |      92.60      |    92.29     |     92.27      |
-|   ResNet18   |     92.02      |      92.02      |    92.02     |     92.02      |
-| ResNet18-SAM |   **93.48**    |    **93.82**    |  **93.48**   |   **93.47**    |
+<table style="margin: 0 auto;">
+  <thead>
+    <tr>
+      <th style="text-align:center;">Model</th>
+      <th style="text-align:center;">Accuracy/%</th>
+      <th style="text-align:center;">Precision/%</th>
+      <th style="text-align:center;">Recall/%</th>
+      <th style="text-align:center;">F1 score/%</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:center;">AlexNet</td>
+      <td style="text-align:center;">90.16</td>
+      <td style="text-align:center;">90.16</td>
+      <td style="text-align:center;">90.16</td>
+      <td style="text-align:center;">90.16</td>
+    </tr>
+    <tr>
+      <td style="text-align:center;">VGG16</td>
+      <td style="text-align:center;">91.22</td>
+      <td style="text-align:center;">92.23</td>
+      <td style="text-align:center;">91.22</td>
+      <td style="text-align:center;">91.17</td>
+    </tr>
+    <tr>
+      <td style="text-align:center;">VGG19</td>
+      <td style="text-align:center;">91.76</td>
+      <td style="text-align:center;">92.70</td>
+      <td style="text-align:center;">91.76</td>
+      <td style="text-align:center;">91.71</td>
+    </tr>
+    <tr>
+      <td style="text-align:center;">ResNet34</td>
+      <td style="text-align:center;">92.55</td>
+      <td style="text-align:center;">93.26</td>
+      <td style="text-align:center;">92.55</td>
+      <td style="text-align:center;">92.52</td>
+    </tr>
+    <tr>
+      <td style="text-align:center;">ResNet50</td>
+      <td style="text-align:center;">91.15</td>
+      <td style="text-align:center;">92.44</td>
+      <td style="text-align:center;">92.15</td>
+      <td style="text-align:center;">92.14</td>
+    </tr>
+    <tr>
+      <td style="text-align:center;">MobileNetV2</td>
+      <td style="text-align:center;">92.29</td>
+      <td style="text-align:center;">92.60</td>
+      <td style="text-align:center;">92.29</td>
+      <td style="text-align:center;">92.27</td>
+    </tr>
+    <tr>
+      <td style="text-align:center;">ResNet18</td>
+      <td style="text-align:center;">92.02</td>
+      <td style="text-align:center;">92.02</td>
+      <td style="text-align:center;">92.02</td>
+      <td style="text-align:center;">92.02</td>
+    </tr>
+    <tr>
+      <td style="text-align:center;">ResNet18-SAM</td>
+      <td style="text-align:center;"><strong>93.48</strong></td>
+      <td style="text-align:center;"><strong>93.82</strong></td>
+      <td style="text-align:center;"><strong>93.48</strong></td>
+      <td style="text-align:center;"><strong>93.47</strong></td>
+    </tr>
+  </tbody>
+</table>
 
 
 
@@ -319,8 +433,9 @@ To use OpenVINO, refer to [README.md](https://github.com/MaitreChen/MedGAN-ResLi
 
 <div align="center">
   <a href="" target="_blank">
-  <img width="50%" src="https://github.com/MaitreChen/MedGAN-ResLite/blob/main/figures/display/CAM.png"></a>
+  <img width="100%" src="https://github.com/MaitreChen/MedGAN-ResLite/blob/main/figures/display/CAM.png"></a>
 </div>
+
 
 
 
