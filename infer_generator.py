@@ -59,7 +59,7 @@ def infer(ckpt_path, batch_size, z_dim, image_size, device, save_path, save_mode
         fake_image_numpy, fake_image = decode_to_numpy(fake_images[0])
         fake_image = fake_image.transpose(1, 2, 0)
         cv.imwrite(save_dir + 'fake.png', fake_image)
-    elif save_mode == 0:
+    elif save_mode == 1:
         print("Generate a Sprite map...")
         create_folder(save_path + 'single/')
         idx = 0
@@ -68,7 +68,7 @@ def infer(ckpt_path, batch_size, z_dim, image_size, device, save_path, save_mode
             path = os.path.join(save_path, 'single', f'fake_img{idx}.png')
             cv.imwrite(path, fake_image)
             idx += 1
-    elif save_mode == 1:
+    elif save_mode == 0:
         print("Generate a batch of images...")
         create_folder(save_path + 'sprite/')
         save_fake_path = f"{save_path}/sprite/fake.png"
