@@ -132,8 +132,8 @@ def train_model(G, D, dataloader, num_epochs, g_lr, d_lr, beta1, beta2):
             epoch_g_loss += g_loss.item()
 
             # Save Losses for plotting later
-            G_losses.append(d_loss.item())
-            D_losses.append(g_loss.item())
+            G_losses.append(g_loss.item())
+            D_losses.append(d_loss.item())
 
             iteration += 1
 
