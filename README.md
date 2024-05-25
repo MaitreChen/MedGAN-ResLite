@@ -42,7 +42,18 @@ This is a **pneumonia classification** project that addresses the issue of **cla
 * ✅ April 21, 2023. Attention mechanism visualization using CAM.
 * ✅ April 25, 2023. Make a Presentation. 
 
+----
 
+* Coming Back！
+
+* ✅ Mar 10, 2024. The dataset was preprocessed using [Chest X-ray 2017](https://data.mendeley.com/datasets/rscbjbr9sj/2) with reference to MedMNIST [[paper](https://arxiv.org/abs/2110.14795)] practices.
+* ✅ Mar 11, 2024. Train GAN & CNN again！
+* ✅ Mar 13, 2024. Histogram equalization was tried, but it did not work well~
+* ✅ Mar 15, 2024. Attempts were made to introduce residual connection in GAN, but the effect was not good and the training  speed was affected~
+* ✅ Mar 20, 2024. Trying the WGAN training strategy and introducing Wasserstein distance did not work well~
+* ✅ Mar 24, 2024. Add Pruning Sample by NNI.
+* ✅ May 15, 2024. Release **PulmoInsight Web Applicaiton**！
+* ✅ May 21, 2024. Release of [**MedGAN-ResLite-V2**](https://github.com/MaitreChen/MedGAN-ResLite/tree/v2)！
 
 ----
 
