@@ -52,7 +52,7 @@ This is a **pneumonia classification** project that addresses the issue of **cla
 * ✅ Mar 15, 2024. Attempts were made to introduce residual connection in GAN, but the effect was not good and the training  speed was affected~
 * ✅ Mar 20, 2024. Trying the WGAN training strategy and introducing Wasserstein distance did not work well~
 * ✅ Mar 24, 2024. Add Pruning Sample by NNI.
-* ✅ May 15, 2024. Release **PulmoInsight Web Applicaiton**！
+* ✅ May 15, 2024. Release [**PulmoInsight Web Applicaiton**](https://github.com/MaitreChen/PulmoInsight)！
 * ✅ May 21, 2024. Release of [**MedGAN-ResLite-V2**](https://github.com/MaitreChen/MedGAN-ResLite/tree/v2)！
 
 ----
